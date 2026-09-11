@@ -31,6 +31,7 @@ def main():
     print(f"True Positive Rate: {100 * sensitivity:.2f}%")
     print(f"True Negative Rate: {100 * specificity:.2f}%")
 
+
 def train_model(evidence, labels):
     """
     Given a list of evidence lists and a list of labels, return a
@@ -42,6 +43,7 @@ def train_model(evidence, labels):
     return model
 
 #    raise NotImplementedError
+
 
 def evaluate(labels, predictions):
     """
@@ -57,7 +59,7 @@ def evaluate(labels, predictions):
     `specificity` should be a floating-point value from 0 to 1
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
- 
+
     In the liste, positive values are 1 and negative 0
     The total_positive is the sum of all labels
     The total_negative is the difference between the total number of values minus the total_positive
@@ -69,7 +71,7 @@ def evaluate(labels, predictions):
     total_positive = 0
     for row in labels:
         total_positive += row
-    
+
     total_negative = len_of_data - total_positive
     true_positive = (labels + predictions == 2).sum()
     true_negative = (labels + predictions == 0).sum()
@@ -78,7 +80,8 @@ def evaluate(labels, predictions):
 
     return sensitivity, specificity
 
-    #raise NotImplementedError
+    # raise NotImplementedError
+
 
 def load_data(filename):
     """
@@ -108,7 +111,7 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-    month_dict= {
+    month_dict = {
         'Jan': 0,
         'Feb': 1,
         'Mar': 2,
@@ -130,33 +133,34 @@ def load_data(filename):
         data = []       # Initialize an empty list
         for row in reader:
             data.append({
-                "evidence": [int(row[0]),           #Administration
-                             float(row[1]),         #Administ duration                        
-                             int(row[2]),           #Information
-                             float(row[3]),         #Information duration
-                             int(row[4]),           #Product related
-                             float(row[5]),         #Product related duration
-                             float(row[6]),         #Bounce rate
-                             float(row[7]),         #Exit rate
-                             float(row[8]),         #Page values
-                             float(row[9]),         #Special day
-                             month_dict[row[10]],   #Month
-                             int(row[11]),          #Oper system
-                             int(row[12]),          #Browser
-                             int(row[13]),          #Region
-                             int(row[14]),          #Traffic type
+                "evidence": [int(row[0]),  # Administration
+                             float(row[1]),  # Administ duration
+                             int(row[2]),  # Information
+                             float(row[3]),  # Information duration
+                             int(row[4]),  # Product related
+                             float(row[5]),  # Product related duration
+                             float(row[6]),  # Bounce rate
+                             float(row[7]),  # Exit rate
+                             float(row[8]),  # Page values
+                             float(row[9]),  # Special day
+                             month_dict[row[10]],  # Month
+                             int(row[11]),  # Oper system
+                             int(row[12]),  # Browser
+                             int(row[13]),  # Region
+                             int(row[14]),  # Traffic type
                              1 if row[15] == "Returning_Visitor" else 0,
                              1 if row[16] == "TRUE" else 0
-                ],
-                 "label": 0 if row[17] == "FALSE" else 1            
+                             ],
+                "label": 0 if row[17] == "FALSE" else 1
             })
 
         evidence = [row["evidence"] for row in data]
-        label    = [row["label"]    for row in data]
+        label = [row["label"] for row in data]
 
-    return evidence,label  
-         
+    return evidence, label
+
     # raise NotImplementedError
+
 
 if __name__ == "__main__":
     main()
